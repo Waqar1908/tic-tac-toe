@@ -8,7 +8,6 @@ import { count, map, scan } from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  count1 = 0;
   title: any;
   xtype: any;
   ytype: any;
@@ -17,16 +16,6 @@ export class AppComponent {
   //create observable that emits click events
 
   ngOnInit() {
-    // let a='321'
-    // console.log(a);
-    // for (let i = 0; i < this.winningCondition.length; i++) {
-    //   const element = this.winningCondition[i];
-    //   // console.log(element);
-    //    }
-    // if (this.winningCondition.includes(a)) {
-    //   console.log('true');  
-    // }
-
   }
 
   winningCondition = ['123', '231', '321', '456', '564', '654', '789', '897', '978', '147', '471', '714', '258', '582', '825', '369', '693', '936', '159', '591', '915', '357', '573', '735']
@@ -71,21 +60,17 @@ export class AppComponent {
     if (this.ytype) {
       console.log('y is winner');
       this.setEmpty()
-
-    }
+     }
     if (!this.xtype && !this.ytype && this.countNumber.length == 9) {
       console.log('draw');
       this.setEmpty()
     }
-
   }
-
   setEmpty() {
     this.countNumber = []
     this.XData = []
     this.YData = []
-
-  }
+    }
 }
 
 
