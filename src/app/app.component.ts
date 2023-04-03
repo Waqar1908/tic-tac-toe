@@ -10,36 +10,55 @@ export class AppComponent {
   title: any;
   xtype: any;
   ytype: any;
+  count!: number;
   constructor(private elementRef: ElementRef) { }
-
   ngOnInit() {    
-    this.testWinningCondition()
   }
 
-  winningCondition = ['123', '231', '321', '456', '564', '654', '789', '897', '978', '147', '471', '714', '258', '582', '825', '369', '693', '936', '159', '591', '915', '357', '573', '735']
+  winningCondition = [['1','2','3'],['4','5','6'] ,['7','8','9'],['1','4','7'],['2','5','8'], ['3','6','9'],['1','5','9'],['3','5','7']]
+  array = [['1','2','3'],['4','5','6'] ,['7','8','9'],['1','4','7'],['2','5','8'], ['3','6','9'],['1','5','9'],['3','5','7']]
   countData = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+  isClicked = Array(this.countData.length).fill(false);
+
   countNumber: any = []
-  terms:string |undefined
+  terms:any
   XData: any = []
   YData: any = []
-  setValue(id: string, value: any) {
-    this.elementRef.nativeElement.querySelector(`#${id}`).value = value;
+  setValue(oldValue:any,terms:any) {
+    let array = this.array.map(innerArray => {
+      const index = innerArray.findIndex(value => value === oldValue);
+      if (index !== -1) {
+        innerArray[index] = this.terms;
+       
+      }
+      
+      return innerArray;
+    });
+    for (let i = 0; i < this.array.length; i++) {
+      const element = this.array[i];
+       this.count = this.array.map(innerArray => innerArray[i]).filter(value => value === this.terms).length;
+
+      
+    }
+    console.log(this.count,'count'); 
+
+    console.log(array);
+    this.isClicked[oldValue]=true
+    
   }
   
 termCheck(el: any) {
-    this.countNumber.push(el)
-    console.log(this.countNumber.length);
+  this.countNumber.push(el)
       this.terms = this.terms === 'X' ? 'O' : 'X';
       console.log(this.terms);
       if (this.terms=='X') {
-        this.XData.push(el)
-      console.log(this.XData);
+     this.setValue(el,this.terms)
+
       }
       
 if (this.terms=='O') {
-  this.YData.push(el)
-  console.log(this.YData);
-  console.log(this.terms);
+  this.setValue(el,this.terms)
+
 }     
     if (this.countNumber.length == 9 || this.XData.length == 3 || this.YData.length == 3) {
       this.winnerTest()
@@ -48,7 +67,10 @@ if (this.terms=='O') {
   }
 
   winnerTest() {
-    this.testWinningCondition()
+  
+
+    
+
     this.xtype = this.winningCondition.includes(this.XData.join(''))
     this.ytype = this.winningCondition.includes(this.YData.join(''))
     if (this.xtype) {
@@ -70,16 +92,6 @@ if (this.terms=='O') {
     this.YData = []
     this.terms=''
     }
-
-    testWinningCondition(){
-      let xdata=['1','3','2','4']
-      let data =xdata.sort((a:any, b:any) => parseFloat(a) - parseFloat(b))
-      let c=data.slice(0,3).join('')
-      console.log(c);
-      
-
-
-}
 }
 
 
