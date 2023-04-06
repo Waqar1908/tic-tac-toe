@@ -11,9 +11,12 @@ export class AppComponent {
   xtype: any;
   ytype: any;
   count!: number;
+  num: any;
+  element: any;
   constructor(private elementRef: ElementRef) { }
   ngOnInit() {    
   }
+  
 
   winningCondition = [['1','2','3'],['4','5','6'] ,['7','8','9'],['1','4','7'],['2','5','8'], ['3','6','9'],['1','5','9'],['3','5','7']]
   array = [['1','2','3'],['4','5','6'] ,['7','8','9'],['1','4','7'],['2','5','8'], ['3','6','9'],['1','5','9'],['3','5','7']]
@@ -35,12 +38,19 @@ export class AppComponent {
       return innerArray;
     });
     for (let i = 0; i < this.array.length; i++) {
-      const element = this.array[i];
-       this.count = this.array.map(innerArray => innerArray[i]).filter(value => value === this.terms).length;
-
+      this.element = this.array[i];
+      console.log(this.element);
       
+       this.count = this.array[i].filter((type: any) =>type==terms).length
+       console.log(this.count);
+       if (this.count==3) {
+        console.log('winner');
+        
+      }
+
     }
-    console.log(this.count,'count'); 
+   
+    
 
     console.log(array);
     this.isClicked[oldValue]=true
@@ -48,6 +58,7 @@ export class AppComponent {
   }
   
 termCheck(el: any) {
+  this.num=el
   this.countNumber.push(el)
       this.terms = this.terms === 'X' ? 'O' : 'X';
       console.log(this.terms);
