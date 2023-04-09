@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { ElementRef } from '@angular/core';
 
 @Component({
@@ -13,7 +13,9 @@ export class AppComponent {
   count!: number;
   num: any;
   element: any;
-  constructor(private elementRef: ElementRef) { }
+  span_id: any;
+  constructor(private elementRef: ElementRef,
+    private renderer: Renderer2) { }
   ngOnInit() {    
   }
   
@@ -27,6 +29,11 @@ export class AppComponent {
   terms:any
   XData: any = []
   YData: any = []
+
+  showValue(){
+    this.num.target.classList.add('pointer-events-none')
+
+  }
   setValue(oldValue:any,terms:any) {
     let array = this.array.map(innerArray => {
       const index = innerArray.findIndex(value => value === oldValue);
@@ -57,18 +64,37 @@ export class AppComponent {
     
   }
   
-termCheck(el: any) {
+termCheck(el: any,item:any) {
+  console.log(el);
+  console.log(item);
+  
   this.num=el
+
+  
+ 
+
+  
+  console.log(el);
+  
+  
   this.countNumber.push(el)
       this.terms = this.terms === 'X' ? 'O' : 'X';
       console.log(this.terms);
       if (this.terms=='X') {
      this.setValue(el,this.terms)
+     this.showValue()
+     el.target.classList.remove('text-[#39FF14]')
+
+    
 
       }
-      
+    
 if (this.terms=='O') {
   this.setValue(el,this.terms)
+  this.showValue()
+  el.target.classList.add('text-[#39FF14]')
+
+
 
 }     
     if (this.countNumber.length == 9 || this.XData.length == 3 || this.YData.length == 3) {

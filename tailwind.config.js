@@ -5,6 +5,7 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    textprime:'#39FF14'
   },
   plugins: [],
 }
