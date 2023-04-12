@@ -65,37 +65,30 @@ export class AppComponent {
   }
   
 termCheck(el: any,item:any) {
-  console.log(el);
+  console.log(el.target.value='X');
   console.log(item);
-  
   this.num=el
-
-  
- 
-
-  
-  console.log(el);
+ console.log(el);
   
   
   this.countNumber.push(el)
       this.terms = this.terms === 'X' ? 'O' : 'X';
       console.log(this.terms);
       if (this.terms=='X') {
+        this.terms= el.target.value='X'
      this.setValue(el,this.terms)
      this.showValue()
      el.target.classList.remove('text-[#39FF14]')
-
-    
-
+     el.target.classList.remove('text-transparent')
       }
     
 if (this.terms=='O') {
+  this.terms= el.target.value='O'
+
   this.setValue(el,this.terms)
   this.showValue()
   el.target.classList.add('text-[#39FF14]')
-
-
-
+  el.target.classList.remove('text-transparent')
 }     
     if (this.countNumber.length == 9 || this.XData.length == 3 || this.YData.length == 3) {
       this.winnerTest()
