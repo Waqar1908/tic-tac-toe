@@ -58,22 +58,12 @@ export class AppComponent {
     }
    
     
-
-    console.log(array);
-    this.isClicked[oldValue]=true
-    
   }
   
 termCheck(el: any,item:any) {
-  console.log(el.target.value='X');
-  console.log(item);
-  this.num=el
- console.log(el);
-  
-  
+  this.num=el 
   this.countNumber.push(el)
       this.terms = this.terms === 'X' ? 'O' : 'X';
-      console.log(this.terms);
       if (this.terms=='X') {
         this.terms= el.target.value='X'
      this.setValue(el,this.terms)
@@ -91,35 +81,18 @@ if (this.terms=='O') {
   el.target.classList.remove('text-transparent')
 }     
     if (this.countNumber.length == 9 || this.XData.length == 3 || this.YData.length == 3) {
-      this.winnerTest()
+      this.setEmpty()
+      el.target.classList.remove('pointer-events-none')
+
     }
 
   }
 
   winnerTest() {
-  
-
     
-
-    this.xtype = this.winningCondition.includes(this.XData.join(''))
-    this.ytype = this.winningCondition.includes(this.YData.join(''))
-    if (this.xtype) {
-      console.log('x is winner');
-      this.setEmpty()
-    }
-    if (this.ytype) {
-      console.log('y is winner');
-      this.setEmpty()
-     }
-    if (!this.xtype && !this.ytype && this.countNumber.length == 9) {
-      console.log('draw');
-      this.setEmpty()
-    }
   }
   setEmpty() {
-    this.countNumber = []
-    this.XData = []
-    this.YData = []
+    this.array=this.winningCondition
     this.terms=''
     }
 }
