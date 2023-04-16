@@ -1,5 +1,6 @@
-import { Component, Renderer2 } from '@angular/core';
-import { ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
+import { window } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -10,21 +11,20 @@ export class AppComponent {
   title: any;
   xtype: any;
   ytype: any;
-  count!: number;
+  count: any;
   num: any;
   element: any;
-  span_id: any;
-  constructor(private elementRef: ElementRef,
-    private renderer: Renderer2) { }
+  terms1: any;
+  clicked!: boolean;
+  a='X';
+  b='O'
+  terms2:any;
+  constructor() { }
   ngOnInit() {    
   }
-  
-
   winningCondition = [['1','2','3'],['4','5','6'] ,['7','8','9'],['1','4','7'],['2','5','8'], ['3','6','9'],['1','5','9'],['3','5','7']]
   array = [['1','2','3'],['4','5','6'] ,['7','8','9'],['1','4','7'],['2','5','8'], ['3','6','9'],['1','5','9'],['3','5','7']]
   countData = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-  isClicked = Array(this.countData.length).fill(false);
-
   countNumber: any = []
   terms:any
   XData: any = []
@@ -32,68 +32,65 @@ export class AppComponent {
 
   showValue(){
     this.num.target.classList.add('pointer-events-none')
-
   }
   setValue(oldValue:any,terms:any) {
+    console.log(oldValue,terms);
+    
     let array = this.array.map(innerArray => {
       const index = innerArray.findIndex(value => value === oldValue);
       if (index !== -1) {
-        innerArray[index] = this.terms;
-       
-      }
-      
+        innerArray[index] = terms;
+        // console.log(innerArray );
+        // console.log(this.array);
+        
+       }
       return innerArray;
     });
     for (let i = 0; i < this.array.length; i++) {
       this.element = this.array[i];
       console.log(this.element);
+      this.count = this.array[i].every((type: any) =>type==terms)
+      if (this.count==true) {
+       console.log('winner');
+       this.setEmpty()
+      } }
       
-       this.count = this.array[i].filter((type: any) =>type==terms).length
-       console.log(this.count);
-       if (this.count==3) {
-        console.log('winner');
-        
-      }
-
+      //  this.count = this.array[i].filter((type: any) =>type==terms).length
+      //  console.log(this.count);
+      //  if (this.count==3) {
+      //   console.log('winner');
+      //  } }
     }
-   
-    
-  }
-  
 termCheck(el: any,item:any) {
+  el.target.value=''
+
   this.num=el 
   this.countNumber.push(el)
-      this.terms = this.terms === 'X' ? 'O' : 'X';
+  this.terms = this.terms == 'X' ? 'O' : 'X';
       if (this.terms=='X') {
-        this.terms= el.target.value='X'
-     this.setValue(el,this.terms)
+        this.terms=el.target.value='X'
+        // this.terms= el.target.value='X'
+     this.setValue(item,this.terms)
      this.showValue()
      el.target.classList.remove('text-[#39FF14]')
      el.target.classList.remove('text-transparent')
       }
     
 if (this.terms=='O') {
-  this.terms= el.target.value='O'
-
-  this.setValue(el,this.terms)
+  this.terms=el.target.value='O'
+  this.setValue(item,this.terms)
   this.showValue()
   el.target.classList.add('text-[#39FF14]')
   el.target.classList.remove('text-transparent')
 }     
-    if (this.countNumber.length == 9 || this.XData.length == 3 || this.YData.length == 3) {
+if (this.countNumber.length == 9) {
       this.setEmpty()
-      el.target.classList.remove('pointer-events-none')
-
     }
-
-  }
-
-  winnerTest() {
-    
   }
   setEmpty() {
     this.array=this.winningCondition
     this.terms=''
+    this.num.target.classList.remove('pointer-events-none')
     }
 }
 
