@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent  {
   title: any;
   xtype: any;
   ytype: any;
@@ -19,6 +19,7 @@ export class AppComponent {
   a='X';
   b='O'
   terms2:any;
+  showOverlay: any;
   constructor() { }
   ngOnInit() {    
   }
@@ -52,7 +53,8 @@ export class AppComponent {
       this.count = this.array[i].every((type: any) =>type==terms)
       if (this.count==true) {
        console.log('winner');
-       this.setEmpty()
+       this.setEmpty();
+       this.openTab()
       } }
       
       //  this.count = this.array[i].filter((type: any) =>type==terms).length
@@ -92,6 +94,18 @@ if (this.countNumber.length == 9) {
     this.terms=''
     this.num.target.classList.remove('pointer-events-none')
     }
+    closeTab(){
+      this.showOverlay = false
+      document.body.style.overflow = "auto"
+    }
+  
+    openTab(){
+      this.showOverlay = true
+      document.body.style.overflow = "hidden"
+      // window.scope=this.num
+    }
+
+    
 }
 
 

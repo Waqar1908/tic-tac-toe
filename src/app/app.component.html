@@ -15,4 +15,26 @@
           <span *ngIf="terms"> {{terms}}</span> 
          </div>
          </div>
+
+
+
+         
+         <div *ngIf="showOverlay" (click)="closeTab()" class="fixed inset-0 w-full h-full z-[100] bg-overlay"></div>
+<div *ngIf="showOverlay" class="bg-cyan-200 bg-opacity-20 z-[1000] mx-auto  fixed overflow-y-auto max-h-[90vh] scroll-thin top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-10 py-5  w-11/12 md:w-4/5 lg:w-2/5 xl:w-2/5 rounded-xl">
+  <div class="flex justify-between my-3 px-4">
+    <P class="text-[#121312] text-xl  md:text-2xl font-Oswald font-extrabold">CONFIRM ACTION</P>
+    <img src="../../../assets/Icons/close.svg" alt="" class="w-6  mt-0 mr-4">
+  </div>
+  <p class="font-Roboto text-black text-lg px-4">Would you like to add a post to your Build Story? You can do this any time from your vehice page.</p>
+  <div class="text-center my-3 px-4 flex justify-end">
+    <button class="bg-primary text-lg font-Oswald font-semibold px-6 py-2 rounded-[6px] text-black mr-4"
+      routerLink="">CONFIRM</button>
+    <button class="bg-black text-lg font-Oswald font-semibold px-6 py-2 rounded-[6px]  ml-4 text-white"
+    (click)="closeTab()">CANCEL</button>
+  </div>
+</div>
+
+
+
+
   
