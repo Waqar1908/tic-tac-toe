@@ -6,6 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./game.component.css']
 })
 export class GameComponent {
+  text = '';
+  originalText = 'Hello, world!';
+
     title: any;
     xtype: any;
     ytype: any;
@@ -18,6 +21,7 @@ export class GameComponent {
     b='O'
     terms2:any;
     showOverlay: any;
+  start=false;
     constructor() { }
     ngOnInit() {    
     }
@@ -25,6 +29,7 @@ export class GameComponent {
     array = [['1','2','3'],['4','5','6'] ,['7','8','9'],['1','4','7'],['2','5','8'], ['3','6','9'],['1','5','9'],['3','5','7']]
     countData = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
     countNumber: any = []
+    termvalue:any=[]
     terms:any
     XData: any = []
     YData: any = []
@@ -68,7 +73,8 @@ export class GameComponent {
     this.countNumber.push(el)
     this.terms = this.terms == 'X' ? 'O' : 'X';
         if (this.terms=='X') {
-          this.terms=el.target.value='X'
+          this.termvalue.push('X')
+          // this.terms=el.target.value='X'
           // this.terms= el.target.value='X'
        this.setValue(item,this.terms)
        this.showValue()
@@ -77,7 +83,8 @@ export class GameComponent {
         }
       
   if (this.terms=='O') {
-    this.terms=el.target.value='O'
+    this.termvalue.push('O')
+    // this.terms=el.target.value='O'
     this.setValue(item,this.terms)
     this.showValue()
     el.target.classList.add('text-[#39FF14]')
@@ -85,9 +92,12 @@ export class GameComponent {
   }     
   if (this.countNumber.length == 9) {
         this.setEmpty()
+        console.log(this.termvalue);
+        
       }
     }
     setEmpty() {
+      console.log(this.termvalue);
       this.array=this.winningCondition
       this.terms=''
       this.num.target.classList.remove('pointer-events-none')
@@ -100,6 +110,17 @@ export class GameComponent {
       openTab(){
         this.showOverlay = true
         document.body.style.overflow = "hidden"
+        // setTimeout(() => this.start = true, 1000)
+        let i = 0;
+        const intervalId = setInterval(() => {
+          this.text += this.originalText.charAt(i);
+          i++;
+          if (i === this.originalText.length) {
+            clearInterval(intervalId);
+          }
+        }, 100);
+    
+
       
   }
   
