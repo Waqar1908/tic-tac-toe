@@ -7,21 +7,11 @@ import { Component } from '@angular/core';
 })
 export class GameComponent {
   text = '';
-  originalText = 'Hello, world!';
-
-    title: any;
-    xtype: any;
-    ytype: any;
     count: any;
     num: any;
     element: any;
-    terms1: any;
-    clicked!: boolean;
-    a='X';
-    b='O'
-    terms2:any;
     showOverlay: any;
-  start=false;
+  winner!:string;
     constructor() { }
     ngOnInit() {    
     }
@@ -29,53 +19,35 @@ export class GameComponent {
     array = [['1','2','3'],['4','5','6'] ,['7','8','9'],['1','4','7'],['2','5','8'], ['3','6','9'],['1','5','9'],['3','5','7']]
     countData = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
     countNumber: any = []
-    termvalue:any=[]
+    termvalue=['1', '2', '3', '4', '5', '6', '7', '8', '9']
     terms:any
-    XData: any = []
-    YData: any = []
-  
     showValue(){
       this.num.target.classList.add('pointer-events-none')
     }
     setValue(oldValue:any,terms:any) {
-      console.log(oldValue,terms);
-      
       let array = this.array.map(innerArray => {
         const index = innerArray.findIndex(value => value === oldValue);
         if (index !== -1) {
           innerArray[index] = terms;
-          // console.log(innerArray );
-          // console.log(this.array);
-          
          }
         return innerArray;
       });
       for (let i = 0; i < this.array.length; i++) {
         this.element = this.array[i];
-        console.log(this.element);
         this.count = this.array[i].every((type: any) =>type==terms)
         if (this.count==true) {
-         console.log('winner');
+          this.winner=`${terms} is winnner`
          this.setEmpty();
          this.openTab()
-        } }
+        } } }
         
-        //  this.count = this.array[i].filter((type: any) =>type==terms).length
-        //  console.log(this.count);
-        //  if (this.count==3) {
-        //   console.log('winner');
-        //  } }
-      }
   termCheck(el: any,item:any) {
-    el.target.value=''
-  
+    var index = this.termvalue.indexOf(item);
     this.num=el 
     this.countNumber.push(el)
     this.terms = this.terms == 'X' ? 'O' : 'X';
         if (this.terms=='X') {
-          this.termvalue.push('X')
-          // this.terms=el.target.value='X'
-          // this.terms= el.target.value='X'
+          this.termvalue[index] = 'X'
        this.setValue(item,this.terms)
        this.showValue()
        el.target.classList.remove('text-[#39FF14]')
@@ -83,18 +55,17 @@ export class GameComponent {
         }
       
   if (this.terms=='O') {
-    this.termvalue.push('O')
-    // this.terms=el.target.value='O'
+    this.termvalue[index] = 'O'
     this.setValue(item,this.terms)
     this.showValue()
     el.target.classList.add('text-[#39FF14]')
     el.target.classList.remove('text-transparent')
   }     
   if (this.countNumber.length == 9) {
+    this.winner=`Its a Draw`
         this.setEmpty()
-        console.log(this.termvalue);
-        
-      }
+        this.openTab()
+       }
     }
     setEmpty() {
       console.log(this.termvalue);
@@ -104,25 +75,19 @@ export class GameComponent {
       }
       closeTab(){
         this.showOverlay = false
-        document.body.style.overflow = "auto"
         window.location.reload()
+        document.body.style.overflow = "auto"
       }
       openTab(){
         this.showOverlay = true
         document.body.style.overflow = "hidden"
-        // setTimeout(() => this.start = true, 1000)
         let i = 0;
         const intervalId = setInterval(() => {
-          this.text += this.originalText.charAt(i);
+          this.text += this.winner.charAt(i);
           i++;
-          if (i === this.originalText.length) {
+          if (i === this.winner.length) {
             clearInterval(intervalId);
           }
-        }, 100);
-    
-
-      
+        }, 100);    
   }
-  
-
 }
